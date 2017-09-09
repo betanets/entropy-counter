@@ -17,5 +17,10 @@ namespace Entropy
         {
             text.Add(str);
         }
+
+        public void clearText()
+        {
+            this.text.Clear();
+        }
     }
 }

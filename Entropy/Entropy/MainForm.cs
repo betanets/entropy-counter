@@ -39,6 +39,7 @@ namespace Entropy
                 {
                     if (openFileDialog.OpenFile() != null)
                     {
+                        keeper.clearText();
                         StreamReader sr;
                         using (sr = new StreamReader(openFileDialog.FileName))
                         {
@@ -65,20 +66,29 @@ namespace Entropy
 
         private void button_analyze_Click(object sender, EventArgs e)
         {
-            analyzer.initEntropy();
+            analyzer.initFrequencies();
+            analyzer.entropy = 0;
+
             analyzer.analyze(keeper);
-            chart_current_entropy.DataSource = analyzer.getEntropy();
+            chart_current_entropy.DataSource = analyzer.getFrequencies();
             chart_current_entropy.Series[0].XValueMember = "Key";
             chart_current_entropy.Series[0].YValueMembers = "Value";
             chart_current_entropy.DataBind();
             chart_current_entropy.ChartAreas["EntropyArea"].AxisX.Interval = 1;
+
+            analyzer.countEntropy(keeper);
 
             loadStats();
         }
 
         private void loadStats()
         {
-            foreach (KeyValuePair<String, Int32> pair in analyzer.getEntropy())
+            this.label_entropy.Text = "Значение энтропии: " + String.Format("{0:0.000}", analyzer.entropy);
+
+            dataGridView_stats.Rows.Clear();
+            dataGridView_stats.Columns.Clear();
+
+            foreach (KeyValuePair<String, Int32> pair in analyzer.getFrequencies())
             {
                 DataGridViewColumn dataGridViewColumn = new DataGridViewTextBoxColumn();
                 dataGridViewColumn.HeaderText = pair.Key;
@@ -93,7 +103,7 @@ namespace Entropy
             }
             else return;
 
-            foreach (KeyValuePair<String, Int32> pair in analyzer.getEntropy())
+            foreach (KeyValuePair<String, Int32> pair in analyzer.getFrequencies())
             {
                 dataGridView_stats.Rows[0].Cells[pair.Key].Value = String.Format("{0:0.00%}", ((Double)pair.Value / keeper.textLength));
             }

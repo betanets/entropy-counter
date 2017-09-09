@@ -5,19 +5,19 @@ namespace Entropy
 {
     public class Analyzer
     {
-        private Dictionary<String, Int32> entropy = new Dictionary<String, Int32>();
+        private Dictionary<String, Int32> frequencies = new Dictionary<String, Int32>();
+        public Double entropy { get; set; }
 
-        public void initEntropy()
+        public void initFrequencies()
         {
-            entropy.Clear();
+            frequencies.Clear();
             for (int i = 0; i < 32; i++)
             {
-                entropy.Add(((Char)('а' + i)).ToString(), 0);
+                frequencies.Add(((Char)('а' + i)).ToString(), 0);
             }
-            entropy.Add("ё", 0);
-            entropy.Add(".", 0);
-            entropy.Add(",", 0);
-            //entropy.Add(" ", 0);
+            frequencies.Add("ё", 0);
+            frequencies.Add(".", 0);
+            frequencies.Add(",", 0);
         }
 
         public void analyze(TextKeeper keeper)
@@ -26,17 +26,32 @@ namespace Entropy
             {
                 foreach (Char sym in line.ToLower())
                 {
-                    if (entropy.ContainsKey(sym.ToString()))
+                    if (frequencies.ContainsKey(sym.ToString()))
                     {
-                        entropy[sym.ToString()] += 1;
+                        frequencies[sym.ToString()] += 1;
                     }
                 }
             }
         }
 
-        public Dictionary<String, Int32> getEntropy()
+        public void countEntropy(TextKeeper keeper)
         {
-            return entropy;
+            Double entropy = 0;
+            foreach (KeyValuePair<String, Int32> pair in this.getFrequencies())
+            {
+                Double p_i = ((Double)pair.Value / keeper.textLength);
+                if (p_i != 0)
+                {
+                    entropy += p_i * Math.Log(p_i, 2);
+                }
+            }
+            entropy *= -1;
+            this.entropy = entropy;
+        }
+
+        public Dictionary<String, Int32> getFrequencies()
+        {
+            return frequencies;
         }
     }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.main_menu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +39,7 @@
             this.label_file = new System.Windows.Forms.Label();
             this.dataGridView_stats = new System.Windows.Forms.DataGridView();
             this.chart_current_entropy = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label_entropy = new System.Windows.Forms.Label();
             this.main_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stats)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_current_entropy)).BeginInit();
@@ -92,7 +93,7 @@
             // label_file
             // 
             this.label_file.AutoSize = true;
-            this.label_file.Location = new System.Drawing.Point(10, 32);
+            this.label_file.Location = new System.Drawing.Point(11, 32);
             this.label_file.Name = "label_file";
             this.label_file.Size = new System.Drawing.Size(92, 13);
             this.label_file.TabIndex = 3;
@@ -111,44 +112,55 @@
             this.dataGridView_stats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_stats.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_stats.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView_stats.Location = new System.Drawing.Point(14, 56);
+            this.dataGridView_stats.Location = new System.Drawing.Point(14, 73);
             this.dataGridView_stats.Name = "dataGridView_stats";
             this.dataGridView_stats.ReadOnly = true;
             this.dataGridView_stats.RowHeadersVisible = false;
-            this.dataGridView_stats.Size = new System.Drawing.Size(888, 65);
+            this.dataGridView_stats.Size = new System.Drawing.Size(886, 65);
             this.dataGridView_stats.TabIndex = 6;
             // 
             // chart_current_entropy
             // 
-            this.chart_current_entropy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.chart_current_entropy.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "EntropyArea";
-            this.chart_current_entropy.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart_current_entropy.Legends.Add(legend1);
-            this.chart_current_entropy.Location = new System.Drawing.Point(14, 138);
+            chartArea4.Name = "EntropyArea";
+            this.chart_current_entropy.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chart_current_entropy.Legends.Add(legend4);
+            this.chart_current_entropy.Location = new System.Drawing.Point(14, 146);
             this.chart_current_entropy.Name = "chart_current_entropy";
             this.chart_current_entropy.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series1.ChartArea = "EntropyArea";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart_current_entropy.Series.Add(series1);
+            series4.ChartArea = "EntropyArea";
+            series4.Legend = "Legend1";
+            series4.Name = "Кол-во симв.";
+            this.chart_current_entropy.Series.Add(series4);
             this.chart_current_entropy.Size = new System.Drawing.Size(887, 300);
             this.chart_current_entropy.TabIndex = 7;
             this.chart_current_entropy.Text = "chart_current_entropy";
+            // 
+            // label_entropy
+            // 
+            this.label_entropy.AutoSize = true;
+            this.label_entropy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_entropy.Location = new System.Drawing.Point(12, 53);
+            this.label_entropy.Name = "label_entropy";
+            this.label_entropy.Size = new System.Drawing.Size(0, 13);
+            this.label_entropy.TabIndex = 8;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(913, 450);
+            this.ClientSize = new System.Drawing.Size(913, 458);
+            this.Controls.Add(this.label_entropy);
             this.Controls.Add(this.chart_current_entropy);
             this.Controls.Add(this.dataGridView_stats);
             this.Controls.Add(this.button_analyze);
             this.Controls.Add(this.label_file);
             this.Controls.Add(this.main_menu);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Энтропия";
             this.main_menu.ResumeLayout(false);
             this.main_menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stats)).EndInit();
@@ -168,5 +180,6 @@
         private System.Windows.Forms.Label label_file;
         private System.Windows.Forms.DataGridView dataGridView_stats;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_current_entropy;
+        private System.Windows.Forms.Label label_entropy;
     }
 }
