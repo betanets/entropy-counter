@@ -15,6 +15,7 @@ namespace Entropy
     {
         private TextKeeper keeper;
         private Analyzer analyzer;
+        private Int32 selectedLanguageId;
 
         public MainForm()
         {
@@ -66,7 +67,7 @@ namespace Entropy
 
         private void button_analyze_Click(object sender, EventArgs e)
         {
-            analyzer.initFrequencies();
+            analyzer.initFrequencies(selectedLanguageId);
             analyzer.entropy = 0;
 
             analyzer.analyze(keeper);
@@ -106,6 +107,30 @@ namespace Entropy
             foreach (KeyValuePair<String, Int32> pair in analyzer.getFrequencies())
             {
                 dataGridView_stats.Rows[0].Cells[pair.Key].Value = String.Format("{0:0.00%}", ((Double)pair.Value / keeper.textLength));
+            }
+        }
+
+        private void languageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var currentItem = sender as ToolStripMenuItem;
+            switch (currentItem.Text)
+            {
+                case "Русский":
+                    selectedLanguageId = 0;
+                    break;
+                case "Английский":
+                    selectedLanguageId = 1;
+                    break;
+            }
+
+            if (currentItem != null)
+            {
+                ((ToolStripMenuItem)currentItem.OwnerItem)
+                    .DropDownItems
+                    .OfType<ToolStripMenuItem>().ToList()
+                    .ForEach(item => { item.Checked = false; });
+
+                currentItem.Checked = true;
             }
         }
     }

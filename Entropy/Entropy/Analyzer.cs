@@ -8,14 +8,25 @@ namespace Entropy
         private Dictionary<String, Int32> frequencies = new Dictionary<String, Int32>();
         public Double entropy { get; set; }
 
-        public void initFrequencies()
+        public void initFrequencies(Int32 languageId)
         {
             frequencies.Clear();
-            for (int i = 0; i < 32; i++)
+            switch (languageId)
             {
-                frequencies.Add(((Char)('а' + i)).ToString(), 0);
+                case 0:
+                    for (int i = 0; i < 32; i++)
+                    {
+                        frequencies.Add(((Char)('а' + i)).ToString(), 0);
+                    }
+                    frequencies.Add("ё", 0);
+                    break;
+                case 1:
+                    for (int i = 0; i < 26; i++)
+                    {
+                        frequencies.Add(((Char)('a' + i)).ToString(), 0);
+                    }
+                    break;
             }
-            frequencies.Add("ё", 0);
             frequencies.Add(".", 0);
             frequencies.Add(",", 0);
         }

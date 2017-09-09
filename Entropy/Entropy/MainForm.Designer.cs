@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.main_menu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.языкОбработкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.русскийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.английскийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_analyze = new System.Windows.Forms.Button();
             this.label_file = new System.Windows.Forms.Label();
             this.dataGridView_stats = new System.Windows.Forms.DataGridView();
@@ -48,7 +51,8 @@
             // main_menu
             // 
             this.main_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem});
+            this.файлToolStripMenuItem,
+            this.языкОбработкиToolStripMenuItem});
             this.main_menu.Location = new System.Drawing.Point(0, 0);
             this.main_menu.Name = "main_menu";
             this.main_menu.Size = new System.Drawing.Size(913, 24);
@@ -77,6 +81,33 @@
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            // 
+            // языкОбработкиToolStripMenuItem
+            // 
+            this.языкОбработкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.русскийToolStripMenuItem,
+            this.английскийToolStripMenuItem});
+            this.языкОбработкиToolStripMenuItem.Name = "языкОбработкиToolStripMenuItem";
+            this.языкОбработкиToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.языкОбработкиToolStripMenuItem.Text = "Язык текста";
+            // 
+            // русскийToolStripMenuItem
+            // 
+            this.русскийToolStripMenuItem.Checked = true;
+            this.русскийToolStripMenuItem.CheckOnClick = true;
+            this.русскийToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.русскийToolStripMenuItem.Name = "русскийToolStripMenuItem";
+            this.русскийToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.русскийToolStripMenuItem.Text = "Русский";
+            this.русскийToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
+            // 
+            // английскийToolStripMenuItem
+            // 
+            this.английскийToolStripMenuItem.CheckOnClick = true;
+            this.английскийToolStripMenuItem.Name = "английскийToolStripMenuItem";
+            this.английскийToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.английскийToolStripMenuItem.Text = "Английский";
+            this.английскийToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // button_analyze
             // 
@@ -124,17 +155,17 @@
             this.chart_current_entropy.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea4.Name = "EntropyArea";
-            this.chart_current_entropy.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart_current_entropy.Legends.Add(legend4);
+            chartArea1.Name = "EntropyArea";
+            this.chart_current_entropy.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart_current_entropy.Legends.Add(legend1);
             this.chart_current_entropy.Location = new System.Drawing.Point(14, 146);
             this.chart_current_entropy.Name = "chart_current_entropy";
             this.chart_current_entropy.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series4.ChartArea = "EntropyArea";
-            series4.Legend = "Legend1";
-            series4.Name = "Кол-во симв.";
-            this.chart_current_entropy.Series.Add(series4);
+            series1.ChartArea = "EntropyArea";
+            series1.Legend = "Legend1";
+            series1.Name = "Кол-во симв.";
+            this.chart_current_entropy.Series.Add(series1);
             this.chart_current_entropy.Size = new System.Drawing.Size(887, 300);
             this.chart_current_entropy.TabIndex = 7;
             this.chart_current_entropy.Text = "chart_current_entropy";
@@ -181,5 +212,8 @@
         private System.Windows.Forms.DataGridView dataGridView_stats;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_current_entropy;
         private System.Windows.Forms.Label label_entropy;
+        private System.Windows.Forms.ToolStripMenuItem языкОбработкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem русскийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem английскийToolStripMenuItem;
     }
 }
