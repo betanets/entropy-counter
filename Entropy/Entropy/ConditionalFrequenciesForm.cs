@@ -14,6 +14,7 @@ namespace Entropy
     {
         private Int32[,] conditionalFrequencies;
         private Int64 textLength;
+        private Double controlSum = 0;
 
         public ConditionalFrequenciesForm(Int32[,] conditionalFrequencies, Int64 textLength)
         {
@@ -44,17 +45,16 @@ namespace Entropy
             }
             else return;
 
-            Double res = 0;
             for(int i = 0; i < arrayLength; i++)
             {
                 for(int j = 0; j < arrayLength; j++)
                 {
                     dataGridView_conditionalFrequencies.Rows[i].Cells[j].Value = String.Format("{0:0.00%}", ((Double)conditionalFrequencies[i, j] / textLength));
-                    res += ((Double)conditionalFrequencies[i, j] / textLength);
+                    controlSum += ((Double)conditionalFrequencies[i, j] / textLength);
                 }
             }
 
-            MessageBox.Show(res.ToString());
+            this.label_control_sum.Text = "Контрольная сумма: " + controlSum.ToString();
         }
     }
 }

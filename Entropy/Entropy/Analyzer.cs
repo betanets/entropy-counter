@@ -8,6 +8,8 @@ namespace Entropy
         private Dictionary<String, Int32> absoluteFrequencies = new Dictionary<String, Int32>();
         private Int32[ , ] conditionalFrequencies;
         public Double entropy { get; set; }
+        public Double performance { get; set; }
+
         public Int64 textLength { get; set; }
 
         private Int32 getCharIndex(Char symbol, Int32 languageId)
@@ -112,10 +114,6 @@ namespace Entropy
                 {
                     symbolFirst = line[i];
                     indexFirst = this.getCharIndex(symbolFirst, languageId);
-                    //if(indexFirst != -1)
-                    //{
-                    //    
-                    //}
 
                     if (i != line.Length - 1)
                     {
@@ -145,6 +143,27 @@ namespace Entropy
             }
             entropy *= -1;
             this.entropy = entropy;
+        }
+
+        public void countPerformance(TextKeeper keeper)
+        {
+            Double performance = 0;
+            Int32 arraySize = conditionalFrequencies.GetLength(0);
+            for (int i = 0; i < arraySize; i++)
+            {
+                int j = 0;
+                foreach (KeyValuePair<String, Int32> pair in this.getAbsoluteFrequencies())
+                {
+                    Double p_j = ((Double)pair.Value / keeper.textLength);
+                    Double p_i_j = ((Double)conditionalFrequencies[i, j] / textLength);
+                    if (p_i_j != 0) {
+                        performance += p_i_j * p_j * Math.Log(p_i_j, 2);
+                    }
+                    j++;
+                }
+            }
+            performance *= -1;
+            this.performance = performance;
         }
 
         public Dictionary<String, Int32> getAbsoluteFrequencies()

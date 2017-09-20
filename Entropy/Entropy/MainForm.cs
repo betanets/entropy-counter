@@ -80,6 +80,8 @@ namespace Entropy
             chart_current_entropy.ChartAreas["EntropyArea"].AxisX.Interval = 1;
 
             analyzer.countEntropy(keeper);
+            analyzer.countPerformance(keeper);
+            MessageBox.Show(analyzer.performance.ToString());
 
             loadStats();
         }
