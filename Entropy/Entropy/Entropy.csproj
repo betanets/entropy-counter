@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analyzer.cs" />
+    <Compile Include="ConditionalFrequenciesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConditionalFrequenciesForm.Designer.cs">
+      <DependentUpon>ConditionalFrequenciesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +62,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextKeeper.cs" />
+    <EmbeddedResource Include="ConditionalFrequenciesForm.resx">
+      <DependentUpon>ConditionalFrequenciesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

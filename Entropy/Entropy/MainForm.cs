@@ -67,11 +67,13 @@ namespace Entropy
 
         private void button_analyze_Click(object sender, EventArgs e)
         {
-            analyzer.initFrequencies(selectedLanguageId);
+            analyzer.initAbsoluteFrequencies(selectedLanguageId);
+            analyzer.initConditionalFrequencies(selectedLanguageId);
             analyzer.entropy = 0;
 
             analyzer.analyze(keeper);
-            chart_current_entropy.DataSource = analyzer.getFrequencies();
+            analyzer.analyzeConditional(keeper, selectedLanguageId);
+            chart_current_entropy.DataSource = analyzer.getAbsoluteFrequencies();
             chart_current_entropy.Series[0].XValueMember = "Key";
             chart_current_entropy.Series[0].YValueMembers = "Value";
             chart_current_entropy.DataBind();
@@ -89,7 +91,7 @@ namespace Entropy
             dataGridView_stats.Rows.Clear();
             dataGridView_stats.Columns.Clear();
 
-            foreach (KeyValuePair<String, Int32> pair in analyzer.getFrequencies())
+            foreach (KeyValuePair<String, Int32> pair in analyzer.getAbsoluteFrequencies())
             {
                 DataGridViewColumn dataGridViewColumn = new DataGridViewTextBoxColumn();
                 dataGridViewColumn.HeaderText = pair.Key;
@@ -104,7 +106,7 @@ namespace Entropy
             }
             else return;
 
-            foreach (KeyValuePair<String, Int32> pair in analyzer.getFrequencies())
+            foreach (KeyValuePair<String, Int32> pair in analyzer.getAbsoluteFrequencies())
             {
                 dataGridView_stats.Rows[0].Cells[pair.Key].Value = String.Format("{0:0.00%}", ((Double)pair.Value / keeper.textLength));
             }
@@ -132,6 +134,12 @@ namespace Entropy
 
                 currentItem.Checked = true;
             }
+        }
+
+        private void условныеЧастотыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConditionalFrequenciesForm conditionalFrequenciesForm = new ConditionalFrequenciesForm(analyzer.getConditionalFrequencies(), analyzer.textLength);
+            conditionalFrequenciesForm.ShowDialog();
         }
     }
 }

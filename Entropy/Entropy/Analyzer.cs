@@ -5,30 +5,86 @@ namespace Entropy
 {
     public class Analyzer
     {
-        private Dictionary<String, Int32> frequencies = new Dictionary<String, Int32>();
+        private Dictionary<String, Int32> absoluteFrequencies = new Dictionary<String, Int32>();
+        private Int32[ , ] conditionalFrequencies;
         public Double entropy { get; set; }
+        public Int64 textLength { get; set; }
 
-        public void initFrequencies(Int32 languageId)
+        private Int32 getCharIndex(Char symbol, Int32 languageId)
         {
-            frequencies.Clear();
+            if(symbol >= 'а' && symbol <= 'я')
+            {
+                return (symbol - 'а');
+            }
+            else if(symbol >= 'a' && symbol <= 'z')
+            {
+                return (symbol - 'a');
+            }
+            else if(symbol == 'ё')
+            {
+                return 32;
+            }
+            else if(symbol == '.')
+            {
+                if(languageId == 0)
+                {
+                    return 33;
+                }
+                else if(languageId == 1)
+                {
+                    return 26;
+                }
+            }
+            else if(symbol == ',')
+            {
+                if (languageId == 0)
+                {
+                    return 34;
+                }
+                else if (languageId == 1)
+                {
+                    return 27;
+                }
+            }
+            return -1;
+        }
+
+        public void initAbsoluteFrequencies(Int32 languageId)
+        {
+            absoluteFrequencies.Clear();
             switch (languageId)
             {
                 case 0:
                     for (int i = 0; i < 32; i++)
                     {
-                        frequencies.Add(((Char)('а' + i)).ToString(), 0);
+                        absoluteFrequencies.Add(((Char)('а' + i)).ToString(), 0);
                     }
-                    frequencies.Add("ё", 0);
+                    absoluteFrequencies.Add("ё", 0);
                     break;
                 case 1:
                     for (int i = 0; i < 26; i++)
                     {
-                        frequencies.Add(((Char)('a' + i)).ToString(), 0);
+                        absoluteFrequencies.Add(((Char)('a' + i)).ToString(), 0);
                     }
                     break;
             }
-            frequencies.Add(".", 0);
-            frequencies.Add(",", 0);
+            absoluteFrequencies.Add(".", 0);
+            absoluteFrequencies.Add(",", 0);
+        }
+
+        public void initConditionalFrequencies(Int32 languageId)
+        {
+            switch (languageId)
+            {
+                case 0:
+                    conditionalFrequencies = new Int32[35, 35];
+                    Array.Clear(conditionalFrequencies, 0, 35);
+                    break;
+                case 1:
+                    conditionalFrequencies = new Int32[28, 28];
+                    Array.Clear(conditionalFrequencies, 0, 28);
+                    break;
+            }
         }
 
         public void analyze(TextKeeper keeper)
@@ -37,18 +93,49 @@ namespace Entropy
             {
                 foreach (Char sym in line.ToLower())
                 {
-                    if (frequencies.ContainsKey(sym.ToString()))
+                    if (absoluteFrequencies.ContainsKey(sym.ToString()))
                     {
-                        frequencies[sym.ToString()] += 1;
+                        absoluteFrequencies[sym.ToString()] += 1;
                     }
                 }
             }
         }
 
+        public void analyzeConditional(TextKeeper keeper, Int32 languageId)
+        {
+            Char symbolFirst, symbolSecond;
+            Int32 indexFirst, indexSecond;
+            Int64 currentTextLength = 0;
+            foreach (String line in keeper.getText())
+            {
+                for(int i = 0; i < line.Length; i++)
+                {
+                    symbolFirst = line[i];
+                    indexFirst = this.getCharIndex(symbolFirst, languageId);
+                    //if(indexFirst != -1)
+                    //{
+                    //    
+                    //}
+
+                    if (i != line.Length - 1)
+                    {
+                        symbolSecond = line[i + 1];
+                        indexSecond = this.getCharIndex(symbolSecond, languageId);
+                        if(indexFirst != -1 && indexSecond != -1)
+                        {
+                            conditionalFrequencies[indexFirst, indexSecond] += 1;
+                            currentTextLength++;
+                        }
+                    }
+                }
+            }
+            this.textLength = currentTextLength;
+        }
+
         public void countEntropy(TextKeeper keeper)
         {
             Double entropy = 0;
-            foreach (KeyValuePair<String, Int32> pair in this.getFrequencies())
+            foreach (KeyValuePair<String, Int32> pair in this.getAbsoluteFrequencies())
             {
                 Double p_i = ((Double)pair.Value / keeper.textLength);
                 if (p_i != 0)
@@ -60,9 +147,14 @@ namespace Entropy
             this.entropy = entropy;
         }
 
-        public Dictionary<String, Int32> getFrequencies()
+        public Dictionary<String, Int32> getAbsoluteFrequencies()
         {
-            return frequencies;
+            return absoluteFrequencies;
+        }
+
+        public Int32[ , ] getConditionalFrequencies()
+        {
+            return conditionalFrequencies;
         }
     }
 }

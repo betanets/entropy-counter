@@ -43,6 +43,8 @@
             this.dataGridView_stats = new System.Windows.Forms.DataGridView();
             this.chart_current_entropy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label_entropy = new System.Windows.Forms.Label();
+            this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.условныеЧастотыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stats)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_current_entropy)).BeginInit();
@@ -52,7 +54,8 @@
             // 
             this.main_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.языкОбработкиToolStripMenuItem});
+            this.языкОбработкиToolStripMenuItem,
+            this.анализToolStripMenuItem});
             this.main_menu.Location = new System.Drawing.Point(0, 0);
             this.main_menu.Name = "main_menu";
             this.main_menu.Size = new System.Drawing.Size(913, 24);
@@ -179,6 +182,21 @@
             this.label_entropy.Size = new System.Drawing.Size(0, 13);
             this.label_entropy.TabIndex = 8;
             // 
+            // анализToolStripMenuItem
+            // 
+            this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.условныеЧастотыToolStripMenuItem});
+            this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
+            this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.анализToolStripMenuItem.Text = "Анализ";
+            // 
+            // условныеЧастотыToolStripMenuItem
+            // 
+            this.условныеЧастотыToolStripMenuItem.Name = "условныеЧастотыToolStripMenuItem";
+            this.условныеЧастотыToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.условныеЧастотыToolStripMenuItem.Text = "Условные частоты";
+            this.условныеЧастотыToolStripMenuItem.Click += new System.EventHandler(this.условныеЧастотыToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,5 +233,7 @@
         private System.Windows.Forms.ToolStripMenuItem языкОбработкиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem русскийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem английскийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem анализToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem условныеЧастотыToolStripMenuItem;
     }
 }
