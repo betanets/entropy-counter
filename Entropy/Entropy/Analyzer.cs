@@ -7,49 +7,10 @@ namespace Entropy
     {
         private Dictionary<String, Int32> absoluteFrequencies = new Dictionary<String, Int32>();
         private Int32[ , ] conditionalFrequencies;
+
         public Double entropy { get; set; }
         public Double performance { get; set; }
-
         public Int64 textLength { get; set; }
-
-        private Int32 getCharIndex(Char symbol, Int32 languageId)
-        {
-            if(symbol >= 'а' && symbol <= 'я')
-            {
-                return (symbol - 'а');
-            }
-            else if(symbol >= 'a' && symbol <= 'z')
-            {
-                return (symbol - 'a');
-            }
-            else if(symbol == 'ё')
-            {
-                return 32;
-            }
-            else if(symbol == '.')
-            {
-                if(languageId == 0)
-                {
-                    return 33;
-                }
-                else if(languageId == 1)
-                {
-                    return 26;
-                }
-            }
-            else if(symbol == ',')
-            {
-                if (languageId == 0)
-                {
-                    return 34;
-                }
-                else if (languageId == 1)
-                {
-                    return 27;
-                }
-            }
-            return -1;
-        }
 
         public void initAbsoluteFrequencies(Int32 languageId)
         {
@@ -113,12 +74,12 @@ namespace Entropy
                 for(int i = 0; i < line.Length; i++)
                 {
                     symbolFirst = line[i];
-                    indexFirst = this.getCharIndex(symbolFirst, languageId);
+                    indexFirst = Helper.getCharIndex(symbolFirst, languageId);
 
                     if (i != line.Length - 1)
                     {
                         symbolSecond = line[i + 1];
-                        indexSecond = this.getCharIndex(symbolSecond, languageId);
+                        indexSecond = Helper.getCharIndex(symbolSecond, languageId);
                         if(indexFirst != -1 && indexSecond != -1)
                         {
                             conditionalFrequencies[indexFirst, indexSecond] += 1;
@@ -149,12 +110,16 @@ namespace Entropy
         {
             Double performance = 0;
             Int32 arraySize = conditionalFrequencies.GetLength(0);
+
+            // Длина текста может быть разной: 
+            // Хранитель знает полную длину текста из всех символов
+            // Анализатор знает длину текста значащих символов
             for (int i = 0; i < arraySize; i++)
             {
                 int j = 0;
                 foreach (KeyValuePair<String, Int32> pair in this.getAbsoluteFrequencies())
                 {
-                    Double p_j = ((Double)pair.Value / keeper.textLength);
+                    Double p_j = ((Double)pair.Value / textLength);
                     Double p_i_j = ((Double)conditionalFrequencies[i, j] / textLength);
                     if (p_i_j != 0) {
                         performance += p_i_j * p_j * Math.Log(p_i_j, 2);

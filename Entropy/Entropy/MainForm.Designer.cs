@@ -38,13 +38,14 @@
             this.языкОбработкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.русскийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.английскийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.условныеЧастотыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_analyze = new System.Windows.Forms.Button();
             this.label_file = new System.Windows.Forms.Label();
             this.dataGridView_stats = new System.Windows.Forms.DataGridView();
             this.chart_current_entropy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label_entropy = new System.Windows.Forms.Label();
-            this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.условныеЧастотыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label_performance = new System.Windows.Forms.Label();
             this.main_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stats)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_current_entropy)).BeginInit();
@@ -100,7 +101,7 @@
             this.русскийToolStripMenuItem.CheckOnClick = true;
             this.русскийToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.русскийToolStripMenuItem.Name = "русскийToolStripMenuItem";
-            this.русскийToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.русскийToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.русскийToolStripMenuItem.Text = "Русский";
             this.русскийToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
@@ -108,9 +109,25 @@
             // 
             this.английскийToolStripMenuItem.CheckOnClick = true;
             this.английскийToolStripMenuItem.Name = "английскийToolStripMenuItem";
-            this.английскийToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.английскийToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.английскийToolStripMenuItem.Text = "Английский";
             this.английскийToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
+            // 
+            // анализToolStripMenuItem
+            // 
+            this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.условныеЧастотыToolStripMenuItem});
+            this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
+            this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.анализToolStripMenuItem.Text = "Анализ";
+            // 
+            // условныеЧастотыToolStripMenuItem
+            // 
+            this.условныеЧастотыToolStripMenuItem.Enabled = false;
+            this.условныеЧастотыToolStripMenuItem.Name = "условныеЧастотыToolStripMenuItem";
+            this.условныеЧастотыToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.условныеЧастотыToolStripMenuItem.Text = "Условные частоты";
+            this.условныеЧастотыToolStripMenuItem.Click += new System.EventHandler(this.условныеЧастотыToolStripMenuItem_Click);
             // 
             // button_analyze
             // 
@@ -182,26 +199,21 @@
             this.label_entropy.Size = new System.Drawing.Size(0, 13);
             this.label_entropy.TabIndex = 8;
             // 
-            // анализToolStripMenuItem
+            // label_performance
             // 
-            this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.условныеЧастотыToolStripMenuItem});
-            this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
-            this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.анализToolStripMenuItem.Text = "Анализ";
-            // 
-            // условныеЧастотыToolStripMenuItem
-            // 
-            this.условныеЧастотыToolStripMenuItem.Name = "условныеЧастотыToolStripMenuItem";
-            this.условныеЧастотыToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.условныеЧастотыToolStripMenuItem.Text = "Условные частоты";
-            this.условныеЧастотыToolStripMenuItem.Click += new System.EventHandler(this.условныеЧастотыToolStripMenuItem_Click);
+            this.label_performance.AutoSize = true;
+            this.label_performance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_performance.Location = new System.Drawing.Point(196, 53);
+            this.label_performance.Name = "label_performance";
+            this.label_performance.Size = new System.Drawing.Size(0, 13);
+            this.label_performance.TabIndex = 9;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 458);
+            this.Controls.Add(this.label_performance);
             this.Controls.Add(this.label_entropy);
             this.Controls.Add(this.chart_current_entropy);
             this.Controls.Add(this.dataGridView_stats);
@@ -209,7 +221,8 @@
             this.Controls.Add(this.label_file);
             this.Controls.Add(this.main_menu);
             this.Name = "MainForm";
-            this.Text = "Энтропия";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Энтропия и производительность марковского источника";
             this.main_menu.ResumeLayout(false);
             this.main_menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stats)).EndInit();
@@ -235,5 +248,6 @@
         private System.Windows.Forms.ToolStripMenuItem английскийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem анализToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem условныеЧастотыToolStripMenuItem;
+        private System.Windows.Forms.Label label_performance;
     }
 }

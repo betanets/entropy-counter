@@ -49,27 +49,29 @@
             this.dataGridView_conditionalFrequencies.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridView_conditionalFrequencies.Location = new System.Drawing.Point(12, 25);
             this.dataGridView_conditionalFrequencies.Name = "dataGridView_conditionalFrequencies";
-            this.dataGridView_conditionalFrequencies.Size = new System.Drawing.Size(660, 624);
+            this.dataGridView_conditionalFrequencies.Size = new System.Drawing.Size(891, 624);
             this.dataGridView_conditionalFrequencies.TabIndex = 0;
             // 
             // label_control_sum
             // 
             this.label_control_sum.AutoSize = true;
+            this.label_control_sum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_control_sum.Location = new System.Drawing.Point(12, 9);
             this.label_control_sum.Name = "label_control_sum";
-            this.label_control_sum.Size = new System.Drawing.Size(115, 13);
+            this.label_control_sum.Size = new System.Drawing.Size(177, 13);
             this.label_control_sum.TabIndex = 1;
-            this.label_control_sum.Text = "Контрольная сумма: ";
+            this.label_control_sum.Text = "Контрольная сумма частот: ";
             // 
             // ConditionalFrequenciesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 661);
+            this.ClientSize = new System.Drawing.Size(915, 661);
             this.Controls.Add(this.label_control_sum);
             this.Controls.Add(this.dataGridView_conditionalFrequencies);
             this.Name = "ConditionalFrequenciesForm";
-            this.Text = "ConditionalFrequenciesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Таблица условных вероятностей";
             this.Load += new System.EventHandler(this.ConditionalFrequenciesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_conditionalFrequencies)).EndInit();
             this.ResumeLayout(false);

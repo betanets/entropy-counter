@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Entropy
@@ -81,14 +76,16 @@ namespace Entropy
 
             analyzer.countEntropy(keeper);
             analyzer.countPerformance(keeper);
-            MessageBox.Show(analyzer.performance.ToString());
 
             loadStats();
+
+            условныеЧастотыToolStripMenuItem.Enabled = true;
         }
 
         private void loadStats()
         {
             this.label_entropy.Text = "Значение энтропии: " + String.Format("{0:0.000}", analyzer.entropy);
+            this.label_performance.Text = "Производительность марковского источника: " + String.Format("{0:0.000}", analyzer.performance);
 
             dataGridView_stats.Rows.Clear();
             dataGridView_stats.Columns.Clear();
@@ -140,7 +137,7 @@ namespace Entropy
 
         private void условныеЧастотыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConditionalFrequenciesForm conditionalFrequenciesForm = new ConditionalFrequenciesForm(analyzer.getConditionalFrequencies(), analyzer.textLength);
+            ConditionalFrequenciesForm conditionalFrequenciesForm = new ConditionalFrequenciesForm(analyzer, selectedLanguageId);
             conditionalFrequenciesForm.ShowDialog();
         }
     }

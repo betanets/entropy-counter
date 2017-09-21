@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Entropy
 {
     public partial class ConditionalFrequenciesForm : Form
     {
-        private Int32[,] conditionalFrequencies;
-        private Int64 textLength;
+        private Analyzer analyzer;
+        private Int32 languageId;
         private Double controlSum = 0;
 
-        public ConditionalFrequenciesForm(Int32[,] conditionalFrequencies, Int64 textLength)
+        public ConditionalFrequenciesForm(Analyzer analyzer, Int32 languageId)
         {
             InitializeComponent();
-            this.conditionalFrequencies = conditionalFrequencies;
-            this.textLength = textLength;
+            this.analyzer = analyzer;
+            this.languageId = languageId;
         }
 
         private void ConditionalFrequenciesForm_Load(object sender, EventArgs e)
@@ -28,20 +21,27 @@ namespace Entropy
             dataGridView_conditionalFrequencies.Rows.Clear();
             dataGridView_conditionalFrequencies.Columns.Clear();
 
-            Int32 arrayLength = conditionalFrequencies.GetLength(0);
+            Int32 arrayLength = analyzer.getConditionalFrequencies().GetLength(0);
 
             for (int i = 0; i < arrayLength; i++)
             {
-                DataGridViewColumn dataGridViewColumn = new DataGridViewTextBoxColumn();
-                //dataGridViewColumn.HeaderText = pair.Key;
-                //dataGridViewColumn.Name = pair.Key;
-                dataGridViewColumn.Width = 50;
+                DataGridViewColumn dataGridViewColumn = new DataGridViewTextBoxColumn
+                {
+                    HeaderText = Helper.getCharByIndex(i, 0).ToString(),
+                    Name = Helper.getCharByIndex(i, languageId).ToString(),
+                    Width = 50
+                };
                 dataGridView_conditionalFrequencies.Columns.Add(dataGridViewColumn);
             }
 
             if (dataGridView_conditionalFrequencies.Columns.Count > 0)
             {
-                dataGridView_conditionalFrequencies.Rows.Add(arrayLength);
+                for (int i = 0; i < arrayLength; i++)
+                {
+                    DataGridViewRow dataGridViewRow = new DataGridViewRow();
+                    dataGridViewRow.HeaderCell.Value = Helper.getCharByIndex(i, languageId).ToString();
+                    dataGridView_conditionalFrequencies.Rows.Add(dataGridViewRow);
+                }
             }
             else return;
 
@@ -49,8 +49,8 @@ namespace Entropy
             {
                 for(int j = 0; j < arrayLength; j++)
                 {
-                    dataGridView_conditionalFrequencies.Rows[i].Cells[j].Value = String.Format("{0:0.00%}", ((Double)conditionalFrequencies[i, j] / textLength));
-                    controlSum += ((Double)conditionalFrequencies[i, j] / textLength);
+                    dataGridView_conditionalFrequencies.Rows[i].Cells[j].Value = String.Format("{0:0.00%}", ((Double)analyzer.getConditionalFrequencies()[i, j] / analyzer.textLength));
+                    controlSum += ((Double)analyzer.getConditionalFrequencies()[i, j] / analyzer.textLength);
                 }
             }
 
