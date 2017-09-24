@@ -27,7 +27,7 @@ namespace Entropy
             {
                 DataGridViewColumn dataGridViewColumn = new DataGridViewTextBoxColumn
                 {
-                    HeaderText = Helper.getCharByIndex(i, 0).ToString(),
+                    HeaderText = Helper.getCharByIndex(i, languageId).ToString(),
                     Name = Helper.getCharByIndex(i, languageId).ToString(),
                     Width = 50
                 };
