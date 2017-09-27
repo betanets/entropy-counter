@@ -64,10 +64,12 @@ namespace Entropy
         {
             analyzer.initAbsoluteFrequencies(selectedLanguageId);
             analyzer.initConditionalFrequencies(selectedLanguageId);
+            analyzer.initPartialFrequencies();
             analyzer.entropy = 0;
 
             analyzer.analyze(keeper);
             analyzer.analyzeConditional(keeper, selectedLanguageId);
+            analyzer.analyzePartial(keeper, selectedLanguageId);
             chart_current_entropy.DataSource = analyzer.getAbsoluteFrequencies();
             chart_current_entropy.Series[0].XValueMember = "Key";
             chart_current_entropy.Series[0].YValueMembers = "Value";

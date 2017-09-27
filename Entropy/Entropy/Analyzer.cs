@@ -7,6 +7,7 @@ namespace Entropy
     {
         private Dictionary<String, Int32> absoluteFrequencies = new Dictionary<String, Int32>();
         private Int32[ , ] conditionalFrequencies;
+        private List<Int32> partialFrequencies = new List<Int32>();
 
         public Double entropy { get; set; }
         public Double performance { get; set; }
@@ -33,6 +34,10 @@ namespace Entropy
             }
             absoluteFrequencies.Add(".", 0);
             absoluteFrequencies.Add(",", 0);
+            for(int i=0; i < 10; i++)
+            {
+                absoluteFrequencies.Add(((Char)('0' + i)).ToString(), 0);
+            }
         }
 
         public void initConditionalFrequencies(Int32 languageId)
@@ -40,14 +45,19 @@ namespace Entropy
             switch (languageId)
             {
                 case 0:
-                    conditionalFrequencies = new Int32[35, 35];
-                    Array.Clear(conditionalFrequencies, 0, 35);
+                    conditionalFrequencies = new Int32[45, 45];
+                    Array.Clear(conditionalFrequencies, 0, 45);
                     break;
                 case 1:
-                    conditionalFrequencies = new Int32[28, 28];
-                    Array.Clear(conditionalFrequencies, 0, 28);
+                    conditionalFrequencies = new Int32[38, 38];
+                    Array.Clear(conditionalFrequencies, 0, 38);
                     break;
             }
+        }
+
+        public void initPartialFrequencies()
+        {
+            partialFrequencies.Clear();
         }
 
         public void analyze(TextKeeper keeper)
@@ -91,6 +101,20 @@ namespace Entropy
             this.textLength = currentTextLength;
         }
 
+        public void analyzePartial(TextKeeper keeper, Int32 languageId)
+        {
+            Int32 arrayLength = this.getConditionalFrequencies().GetLength(0);
+            for (int i = 0; i < arrayLength; i++)
+            {
+                Int32 partialSize = 0;
+                for (int j = 0; j < arrayLength; j++)
+                {
+                    partialSize += conditionalFrequencies[j, i];
+                }
+                this.partialFrequencies.Add(partialSize);
+            }
+        }
+
         public void countEntropy(TextKeeper keeper)
         {
             Double entropy = 0;
@@ -119,8 +143,8 @@ namespace Entropy
                 int j = 0;
                 foreach (KeyValuePair<String, Int32> pair in this.getAbsoluteFrequencies())
                 {
-                    Double p_j = ((Double)pair.Value / textLength);
-                    Double p_i_j = ((Double)conditionalFrequencies[i, j] / textLength);
+                    Double p_j = ((Double)pair.Value / keeper.textLength);
+                    Double p_i_j = ((Double)conditionalFrequencies[i, j] / partialFrequencies[j]);
                     if (p_i_j != 0) {
                         performance += p_i_j * p_j * Math.Log(p_i_j, 2);
                     }
@@ -139,6 +163,11 @@ namespace Entropy
         public Int32[ , ] getConditionalFrequencies()
         {
             return conditionalFrequencies;
+        }
+
+        public List<Int32> getPartialFrequencies()
+        {
+            return partialFrequencies;
         }
     }
 }

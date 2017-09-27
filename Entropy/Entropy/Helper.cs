@@ -40,6 +40,17 @@ namespace Entropy
                     return 27;
                 }
             }
+            else if(symbol >= '0' && symbol <= '9')
+            {
+                if (languageId == 0)
+                {
+                    return 35 + (symbol - '0');
+                }
+                else if(languageId == 1)
+                {
+                    return 28 + (symbol - '0');
+                }
+            }
             return -1;
         }
 
@@ -64,6 +75,10 @@ namespace Entropy
                     {
                         return ',';
                     }
+                    else if(index >= 35 && index < 45)
+                    {
+                        return (Char)('0' + (index - 35));
+                    }
                     break;
                 case 1:
                     if (index >= 0 && index < 26)
@@ -77,6 +92,10 @@ namespace Entropy
                     else if (index == 27)
                     {
                         return ',';
+                    }
+                    else if (index >= 28 && index < 38)
+                    {
+                        return (Char)('0' + (index - 28));
                     }
                     break;
             }

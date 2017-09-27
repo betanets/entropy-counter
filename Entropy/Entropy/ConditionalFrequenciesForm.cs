@@ -49,11 +49,10 @@ namespace Entropy
             {
                 for(int j = 0; j < arrayLength; j++)
                 {
-                    dataGridView_conditionalFrequencies.Rows[i].Cells[j].Value = String.Format("{0:0.00%}", ((Double)analyzer.getConditionalFrequencies()[i, j] / analyzer.textLength));
-                    controlSum += ((Double)analyzer.getConditionalFrequencies()[i, j] / analyzer.textLength);
+                    dataGridView_conditionalFrequencies.Rows[i].Cells[j].Value = String.Format("{0:0.00%}", ((Double)analyzer.getConditionalFrequencies()[i, j] / analyzer.getPartialFrequencies()[j]));
+                    controlSum += ((Double)analyzer.getConditionalFrequencies()[i, j] / analyzer.getPartialFrequencies()[j]);
                 }
             }
-
             this.label_control_sum.Text = "Контрольная сумма: " + controlSum.ToString();
         }
     }
